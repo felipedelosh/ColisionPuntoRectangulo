@@ -1,0 +1,121 @@
+from tkinter import *
+
+
+
+pantalla = Tk()
+
+
+ventana = Toplevel()
+
+
+
+""""""
+
+
+ventana.geometry("640x480")
+
+
+
+"""Se pinta una matrix de 13arcos y su13marinos"""
+"""Esta tela pinta los 13arcos y su13marinos"""
+tela = Canvas(ventana, width=640, height=480, bg='snow')
+lInfo = Label(tela, text='Ingresar Navios y Submarinos para iniciar la partida:')
+linfonavios = Label(tela, text='Navios:')
+linfosu = Label(tela, text='Submarinos:')
+"""13otones encargados de poner los 13arcos"""
+btnNavio5 = Button(tela, text="N5")
+btnNavio4 = Button(tela, text="N4")
+btnNavio3a = Button(tela, text="N3")
+btnNavio3b = Button(tela, text="N3")
+btnNavio2 = Button(tela, text="N2")
+"""botones para poner los submarinos"""
+btnSub5 = Button(tela, text="S5")
+btnSub4 = Button(tela, text="S4")
+btnSub3a = Button(tela, text="S3")
+btnSub3b = Button(tela, text="S3")
+btnSub2 = Button(tela, text="S2")
+"""Booleanos para el control de posicionar navios y submarinos"""
+"""Si se preciona click der mouse la horientacion del navio o subm cam13ia de vertical a horizontal"""
+cambiarPosNavio = False
+quieroPonerNavio = False
+quieroPonerSubmarino = False
+
+navios = []
+submarinos = []
+
+def epa(evt):
+
+    con = 0
+    """Se marca el lugar donde se dio click con el mouse"""
+    click = (evt.x, evt.y)
+
+    for i in range(0, 10):
+        for j in range(0, 10):
+            if colisiona(navios[j][i], click):
+                print('epa', navios[j][i])
+
+
+def colisiona(r1, r2):
+    """Esta en el eje de las x?"""
+    if r2[0] >= r1[0] and r2[0] <= r1[1]:
+        """Esta en el eje de las y?"""
+        if r2[1] <= r1[3] and r2[1] >= r1[2]:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+
+"""Se agregan los 13arcos"""
+for i in range(0, 10):
+    navios.append([])
+    for j in range(0, 10):
+        xo = 80 + ((j)*20)
+        x1 = 80 + ((j+1) * 20)
+        yo = 100 + (i * 20)
+        y1 = 100 + ((i+1) * 20)
+        tela.create_rectangle(xo, yo, x1, y1)
+        navios[i].append((xo, x1, yo, y1))
+
+"""Se agregan los su13marinos"""
+for x in range(0, 10):
+    submarinos.append([])
+    for y in range(0, 10):
+        xo = 320 + ((y) * 20)
+        x1 = 320 + ((y + 1) * 20)
+        yo = 100 + (x * 20)
+        y1 = 100 + ((x + 1) * 20)
+        tela.create_rectangle(xo, yo, x1, y1)
+        submarinos[x].append((xo, x1, yo, y1))
+
+
+"""Se agrega el evento del click"""
+tela.bind('<Button-1>', epa)
+
+
+
+"""Se pintan los elementos"""
+tela.place(x=0, y=0)
+lInfo.place(x=10, y=10)
+linfonavios.place(x=80, y=70)
+linfosu.place(x=320, y=70)
+btnNavio5.place(x=80, y=320)
+btnNavio4.place(x=120, y=320)
+btnNavio3a.place(x=160, y=320)
+btnNavio3b.place(x=200, y=320)
+btnNavio2.place(x=240, y=320)
+btnSub5.place(x=320, y=320)
+btnSub4.place(x=360, y=320)
+btnSub3a.place(x=400, y=320)
+btnSub3b.place(x=440, y=320)
+btnSub2.place(x=480, y=320)
+
+
+
+
+
+
+
+pantalla.mainloop()
